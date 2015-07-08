@@ -15,10 +15,13 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @post.tags.build()
+    @tags = Tag.all
   end
 
   # GET /posts/1/edit
   def edit
+    @tags = Tag.all
   end
 
   # POST /posts
@@ -68,6 +71,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name, :content, :tag_ids => [])
+      params.require(:post).permit(:name, :content, :tags_attributes => [:name], :tag_ids => [])
     end
 end
